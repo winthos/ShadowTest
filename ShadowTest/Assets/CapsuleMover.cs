@@ -30,6 +30,12 @@ public class CapsuleMover : MonoBehaviour
 
     public GameObject Glyph = null;
 
+	public GameObject EnviroGlyphHoriz = null;
+	public GameObject EnviroGlyphShadowCast = null;
+
+	public GameObject EnviroGlyphOther = null;
+	public GameObject EnviroGlyphShadowCastOther = null;
+
     public GameObject Enemy = null;
 	// Use this for initialization
 	void Start () {
@@ -87,15 +93,7 @@ public class CapsuleMover : MonoBehaviour
         {
             gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
         }
-
-        //if you put down left click
-        if(Input.GetMouseButtonDown(0) && Input.GetMouseButton(1) == false)
-        {
-            StunLight.SetActive(true);
-            StartStunTimer = true;
-
-            Enemy.GetComponent<EnemyController>().StopMoving = true;
-        }
+			
 
         if(StartStunTimer == true)
         {
@@ -108,7 +106,16 @@ public class CapsuleMover : MonoBehaviour
             }
         }
 
-        
+/////////////////////////MOOOUUUUSSSEEE STUFFFFFFF HEEEEERE
+
+		//if you put down left click
+		if(Input.GetMouseButtonDown(0) && Input.GetMouseButton(1) == false)
+		{
+			StunLight.SetActive(true);
+			StartStunTimer = true;
+
+			Enemy.GetComponent<EnemyController>().StopMoving = true;
+		}
         
         //hold down right click, turn on the targeting light
 		if(Input.GetMouseButton(1))
@@ -140,6 +147,12 @@ public class CapsuleMover : MonoBehaviour
                             BrightForwardLamp.SetActive(true);
 
                             Glyph.GetComponent<GlyphController>().StartTheCountdown = true;
+							EnviroGlyphHoriz.GetComponent<VertGlyphController> ().StartTheCountdown = true;
+							EnviroGlyphShadowCast.SetActive (true);
+
+							EnviroGlyphOther.GetComponent<HorizGlyphController> ().StartTheCountdown = true;
+							EnviroGlyphShadowCastOther.SetActive (true);
+							
                         }
                     }
                 }
@@ -161,6 +174,11 @@ public class CapsuleMover : MonoBehaviour
             Sparks.SetActive(false);
             CastShadowLightParticle.SetActive(false);
             BrightForwardLamp.SetActive(false);
+
+			EnviroGlyphShadowCast.SetActive (false);
+
+			//EnviroGlyphOther.GetComponent<HorizGlyphController> ().StartTheCountdown = true;
+			EnviroGlyphShadowCastOther.SetActive (false);
         }
 
 
