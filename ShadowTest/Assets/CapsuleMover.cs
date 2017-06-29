@@ -9,6 +9,28 @@ public class CapsuleMover : MonoBehaviour
 
 	public bool AmILockedOnToTheThing = false;
 
+    private bool StopMoving = false;
+
+    public GameObject ForwardLight = null;
+
+    public GameObject RoundLamp = null;
+
+    public GameObject LightTargeting = null;
+
+    public GameObject StunLight = null;
+
+    private float StunTimer = 2.0f;
+    private bool StartStunTimer = false;
+
+    public GameObject ShadowBlast = null;
+    public GameObject Sparks = null;
+    public GameObject Shockwave = null;
+    public GameObject CastShadowLightParticle = null;
+    public GameObject BrightForwardLamp = null;
+
+    public GameObject Glyph = null;
+
+    public GameObject Enemy = null;
 	// Use this for initialization
 	void Start () {
 		
@@ -33,32 +55,69 @@ public class CapsuleMover : MonoBehaviour
 		if (Input.GetKey (KeyCode.W)) {
 
 			gameObject.GetComponent<Rigidbody> ().AddForce (gameObject.transform.forward * 10);
+            StopMoving = false;
 		}
 
 		if (Input.GetKey (KeyCode.A)) {
 
 			gameObject.GetComponent<Rigidbody> ().AddForce (gameObject.transform.right * -10);
-		}
+            StopMoving = false;
+        }
 
 		if (Input.GetKey (KeyCode.S)) {
 
 			gameObject.GetComponent<Rigidbody> ().AddForce (gameObject.transform.forward * -10);
-		}
+            StopMoving = false;
+        }
 
 		if (Input.GetKey (KeyCode.D)) {
 
 			gameObject.GetComponent<Rigidbody> ().AddForce (gameObject.transform.right * 10);
-		}
+            StopMoving = false;
+        }
 
 		if (Input.GetKeyUp (KeyCode.W) || Input.GetKeyUp (KeyCode.A) || Input.GetKeyUp (KeyCode.S) || Input.GetKeyUp (KeyCode.D)) 
 		{
+            //print("stop moving");
 			gameObject.GetComponent<Rigidbody> ().velocity = Vector3.zero;
+            StopMoving = true;
 		}
 
+        if(StopMoving == true)
+        {
+            gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
+        }
 
+        //if you put down left click
+        if(Input.GetMouseButtonDown(0) && Input.GetMouseButton(1) == false)
+        {
+            StunLight.SetActive(true);
+            StartStunTimer = true;
+
+            Enemy.GetComponent<EnemyController>().StopMoving = true;
+        }
+
+        if(StartStunTimer == true)
+        {
+            StunTimer -= Time.deltaTime;
+            if(StunTimer <= 0.0f)
+            {
+                StunLight.SetActive(false);
+                StartStunTimer = false;
+                StunTimer = 2.0f;
+            }
+        }
+
+        
+        
+        //hold down right click, turn on the targeting light
 		if(Input.GetMouseButton(1))
 			{
 				RaycastHit hit;
+
+                ForwardLight.SetActive(true);
+                RoundLamp.SetActive(false);
+                LightTargeting.SetActive(true);
 
 				if(Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, 20))
 				{
@@ -70,14 +129,39 @@ public class CapsuleMover : MonoBehaviour
 					    AmILockedOnToTheThing = true;
 					    thingImLookingAt = hit.transform;
 
-					}
-				}
+                        //if right click is held down, we have a target, let's try and BLAST IT
+
+                        if(Input.GetMouseButton(0))
+                        {
+                            ShadowBlast.SetActive(true);
+                            Shockwave.SetActive(true);
+                            Sparks.SetActive(true);
+                            CastShadowLightParticle.SetActive(true);
+                            BrightForwardLamp.SetActive(true);
+
+                            Glyph.GetComponent<GlyphController>().StartTheCountdown = true;
+                        }
+                    }
+                }
+
+                
+
 			}
 
-		if (Input.GetKeyDown (KeyCode.E)) 
-		{
-			AmILockedOnToTheThing = false;
-		}
+        //release right click, stuff happens
+        if(Input.GetMouseButtonUp(1))
+        {
+            ForwardLight.SetActive(false);
+            RoundLamp.SetActive(true);
+            AmILockedOnToTheThing = false;
+            LightTargeting.SetActive(false);
+
+            ShadowBlast.SetActive(false);
+            Shockwave.SetActive(false);
+            Sparks.SetActive(false);
+            CastShadowLightParticle.SetActive(false);
+            BrightForwardLamp.SetActive(false);
+        }
 
 
 	}
