@@ -22,21 +22,21 @@ public class CapsuleMover : MonoBehaviour
     private float StunTimer = 2.0f;
     private bool StartStunTimer = false;
 
-    public GameObject ShadowBlast = null;
-    public GameObject Sparks = null;
-    public GameObject Shockwave = null;
+   // public GameObject ShadowBlast = null;
+    //public GameObject Sparks = null;
+    //public GameObject Shockwave = null;
     public GameObject CastShadowLightParticle = null;
     public GameObject BrightForwardLamp = null;
 
-    public GameObject Glyph = null;
+   // public GameObject Glyph = null;
 
-	public GameObject EnviroGlyphHoriz = null;
-	public GameObject EnviroGlyphShadowCast = null;
+	//public GameObject EnviroGlyphHoriz = null;
+	//public GameObject EnviroGlyphShadowCast = null;
 
-	public GameObject EnviroGlyphOther = null;
-	public GameObject EnviroGlyphShadowCastOther = null;
+	//public GameObject EnviroGlyphOther = null;
+	//public GameObject EnviroGlyphShadowCastOther = null;
 
-    public GameObject Enemy = null;
+   // public GameObject Enemy = null;
 	// Use this for initialization
 	void Start () {
 		
@@ -47,8 +47,8 @@ public class CapsuleMover : MonoBehaviour
 
 		if (AmILockedOnToTheThing == false) 
 		{
-
-			Quaternion quattro = Quaternion.LookRotation (GameObject.Find ("Pivot").transform.forward,GameObject.Find ("Pivot").transform.up );
+            //thingImLookingAt.GetComponent<VertGlyphController>().AmIBeingTargeted = false;
+            Quaternion quattro = Quaternion.LookRotation (GameObject.Find ("Pivot").transform.forward,GameObject.Find ("Pivot").transform.up );
 			gameObject.transform.rotation = quattro;
 			//print (quattro);
 		}
@@ -56,6 +56,7 @@ public class CapsuleMover : MonoBehaviour
 		if (AmILockedOnToTheThing == true) 
 		{
 			gameObject.transform.LookAt (thingImLookingAt);
+            thingImLookingAt.GetComponent<VertGlyphController>().AmIBeingTargeted = true;
 		}
 
 		if (Input.GetKey (KeyCode.W)) {
@@ -109,13 +110,13 @@ public class CapsuleMover : MonoBehaviour
 /////////////////////////MOOOUUUUSSSEEE STUFFFFFFF HEEEEERE
 
 		//if you put down left click
-		if(Input.GetMouseButtonDown(0) && Input.GetMouseButton(1) == false)
+		/*if(Input.GetMouseButtonDown(0) && Input.GetMouseButton(1) == false)
 		{
 			StunLight.SetActive(true);
 			StartStunTimer = true;
 
 			Enemy.GetComponent<EnemyController>().StopMoving = true;
-		}
+		}*/
         
         //hold down right click, turn on the targeting light
 		if(Input.GetMouseButton(1))
@@ -136,13 +137,15 @@ public class CapsuleMover : MonoBehaviour
 					    AmILockedOnToTheThing = true;
 					    thingImLookingAt = hit.transform;
 
+                    hit.transform.forward = gameObject.transform.forward;
+
                         //if right click is held down, we have a target, let's try and BLAST IT
 
-                        if(Input.GetMouseButton(0))
+                       /* if(Input.GetMouseButton(0))
                         {
-                            ShadowBlast.SetActive(true);
-                            Shockwave.SetActive(true);
-                            Sparks.SetActive(true);
+                            //ShadowBlast.SetActive(true);
+                            //Shockwave.SetActive(true);
+                            //Sparks.SetActive(true);
                             CastShadowLightParticle.SetActive(true);
                             BrightForwardLamp.SetActive(true);
 
@@ -153,7 +156,7 @@ public class CapsuleMover : MonoBehaviour
 							EnviroGlyphOther.GetComponent<HorizGlyphController> ().StartTheCountdown = true;
 							EnviroGlyphShadowCastOther.SetActive (true);
 							
-                        }
+                        }*/
                     }
                 }
 
@@ -169,16 +172,16 @@ public class CapsuleMover : MonoBehaviour
             AmILockedOnToTheThing = false;
             LightTargeting.SetActive(false);
 
-            ShadowBlast.SetActive(false);
-            Shockwave.SetActive(false);
-            Sparks.SetActive(false);
+            //ShadowBlast.SetActive(false);
+            //Shockwave.SetActive(false);
+            //Sparks.SetActive(false);
             CastShadowLightParticle.SetActive(false);
             BrightForwardLamp.SetActive(false);
 
-			EnviroGlyphShadowCast.SetActive (false);
+			//EnviroGlyphShadowCast.SetActive (false);
 
 			//EnviroGlyphOther.GetComponent<HorizGlyphController> ().StartTheCountdown = true;
-			EnviroGlyphShadowCastOther.SetActive (false);
+			//EnviroGlyphShadowCastOther.SetActive (false);
         }
 
 

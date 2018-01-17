@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/ShadowSceneTest.unity
+- path: Assets/NewTest.unity
   isLoaded: 1
   isActive: 1
