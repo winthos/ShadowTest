@@ -12,16 +12,21 @@ public class VertGlyphController : MonoBehaviour {
 
 	public float Timer = 0.5f;
     */
-    public GameObject firstpos = null;
-    public GameObject secondpos = null;
+    public GameObject symbol1 = null;
+    public GameObject symbol2 = null;
+    public GameObject symbol3 = null;
 
     public bool AmIBeingTargeted = false;
     
 	// Use this for initialization
 	void Start () 
 	{
-        transform.GetComponent<LineRenderer>().enabled = false;
-	}
+        //transform.GetComponent<LineRenderer>().enabled = false;
+
+        symbol1.SetActive(false);
+        symbol2.SetActive(false);
+        symbol3.SetActive(false);
+    }
 	
 	// Update is called once per frame
 	void Update () 
@@ -29,14 +34,21 @@ public class VertGlyphController : MonoBehaviour {
 
         if(AmIBeingTargeted == true)
         {
-            transform.GetComponent<LineRenderer>().enabled = true;
-            transform.GetComponent<LineRenderer>().SetPosition(0, new Vector3(firstpos.transform.position.x, firstpos.transform.position.y, firstpos.transform.position.z));
-            transform.GetComponent<LineRenderer>().SetPosition(1, new Vector3(secondpos.transform.position.x, secondpos.transform.position.y, secondpos.transform.position.z));
+            //    transform.GetComponent<LineRenderer>().enabled = true;
+            //  transform.GetComponent<LineRenderer>().SetPosition(0, new Vector3(firstpos.transform.position.x, firstpos.transform.position.y, firstpos.transform.position.z));
+            //   transform.GetComponent<LineRenderer>().SetPosition(1, new Vector3(secondpos.transform.position.x, secondpos.transform.position.y, secondpos.transform.position.z));
+
+            symbol1.SetActive(true);
+            symbol2.SetActive(true);
+            symbol3.SetActive(true);
         }
 
         if(AmIBeingTargeted == false)
         {
-            transform.GetComponent<LineRenderer>().enabled = false;
+            // transform.GetComponent<LineRenderer>().enabled = false;
+            symbol1.SetActive(false);
+            symbol2.SetActive(false);
+            symbol3.SetActive(false);
         }
 
         if (Input.GetMouseButtonUp(1))
