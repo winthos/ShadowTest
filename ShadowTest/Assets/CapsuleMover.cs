@@ -119,7 +119,7 @@ public class CapsuleMover : MonoBehaviour
 		}*/
         
         //hold down right click, turn on the targeting light
-		if(Input.GetMouseButton(1))
+		if(Input.GetMouseButton(0))
 			{
 				RaycastHit hit;
 
@@ -164,8 +164,21 @@ public class CapsuleMover : MonoBehaviour
 
 			}
 
-        //release right click, stuff happens
-        if(Input.GetMouseButtonUp(1))
+        if(Input.GetMouseButtonDown(0))
+        {
+            ForwardLight.SetActive(true);
+            RoundLamp.SetActive(false);
+            LightTargeting.SetActive(true);
+        }
+        if (Input.GetMouseButtonUp(0))
+        {
+            ForwardLight.SetActive(false);
+            RoundLamp.SetActive(true);
+            LightTargeting.SetActive(false);
+        }
+
+            //release right click, stuff happens
+            if (Input.GetMouseButtonUp(0))
         {
             ForwardLight.SetActive(false);
             RoundLamp.SetActive(true);

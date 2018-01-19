@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class LaserScript : MonoBehaviour
+public class LaserScript_winson : MonoBehaviour
 {
 	public LineRenderer laserLineRenderer;
 	public float laserWidth = 0.1f;

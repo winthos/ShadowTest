@@ -60,7 +60,7 @@ public class VertGlyphController : MonoBehaviour {
             symbol3.SetActive(false);
         }
 
-        if (Input.GetMouseButtonUp(1))
+        if (Input.GetMouseButtonUp(0))
         {
             AmIBeingTargeted = false;
         }
