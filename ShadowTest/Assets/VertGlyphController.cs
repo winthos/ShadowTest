@@ -17,6 +17,10 @@ public class VertGlyphController : MonoBehaviour {
     public GameObject symbol3 = null;
 
     public bool AmIBeingTargeted = false;
+
+    public bool prism1 = false;
+    public bool prism2 = false;
+    public bool prism3 = true;
     
 	// Use this for initialization
 	void Start () 
@@ -38,8 +42,13 @@ public class VertGlyphController : MonoBehaviour {
             //  transform.GetComponent<LineRenderer>().SetPosition(0, new Vector3(firstpos.transform.position.x, firstpos.transform.position.y, firstpos.transform.position.z));
             //   transform.GetComponent<LineRenderer>().SetPosition(1, new Vector3(secondpos.transform.position.x, secondpos.transform.position.y, secondpos.transform.position.z));
 
+            if(prism1 == true)
             symbol1.SetActive(true);
+
+            if(prism2 == true)
             symbol2.SetActive(true);
+
+            if(prism3 == true)
             symbol3.SetActive(true);
         }
 
